@@ -1,3 +1,4 @@
+
 import discord
 import feedparser
 import os
@@ -5,8 +6,8 @@ import asyncio
 from discord.ext import tasks
 
 # BOT CONFIGURATION (Using Environment Variables for Security)
-TOKEN = os.getenv("TOKEN")  # Set this in Railway
-CHANNEL_ID = int(os.getenv("CHANNEL_ID"))  # Set this in Railway
+TOKEN = os.getenv("6ae15545d882d9d2dcde50de6b363ea9da2ba53b91383993162fe5e3c1c65f11")  # Set this in Railway
+CHANNEL_ID = int(os.getenv("1343377957636280493"))  # Set this in Railway
 TWITTER_USERNAMES = [
     "elonmusk", "MarioNawfal", "WhatcherGuru", "DailyMailCeleb", 
     "Nuotrix", "PFTrenches", "TrumpDailyPosts", "meme1coins", 
@@ -31,7 +32,7 @@ async def on_ready():
 # Store last seen tweet links
 last_tweets = {}
 
-@tasks.loop(seconds=60)  # Adjust to prevent rate limits
+@tasks.loop(seconds=6)  # Adjust to prevent rate limits
 async def check_tweets():
     """Fetches tweets from RSS and posts new ones to the Discord channel."""
     channel = client.get_channel(CHANNEL_ID)
