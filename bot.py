@@ -44,17 +44,26 @@ async def check_tweets():
     for username in TWITTER_USERNAMES:
         try:
             feed = feedparser.parse(RSS_URL.format(username))
+            print(f"Feed data for @{username}: {feed}")  # Log the full feed data
+
             if not feed.entries:
                 print(f"No tweets found for @{username}")
                 continue
 
-            latest_tweet = feed.entries[0]
-            tweet_link = latest_tweet.link
+            # Debug: print each entry to see what's inside
+            for entry in feed.entries:
+                print(f"Entry found: {entry}")
 
-            # Only post if the tweet is new
-            if username not in last_tweets or last_tweets[username] != tweet_link:
-                last_tweets[username] = tweet_link
-                await channel.send(f"New tweet from @{username}: {tweet_link}")
+            latest_tweet = feed.entries[0]
+            tweet_link = latest_tweet.get("link")
+            
+            if tweet_link:
+                # Only post if the tweet is new
+                if username not in last_tweets or last_tweets[username] != tweet_link:
+                    last_tweets[username] = tweet_link
+                    await channel.send(f"New tweet from @{username}: {tweet_link}")
+            else:
+                print(f"Missing tweet link for @{username}")
 
         except Exception as e:
             print(f"Error fetching tweets for @{username}: {e}")
