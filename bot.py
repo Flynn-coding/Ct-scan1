@@ -6,7 +6,7 @@ from discord.ext import tasks
 
 # BOT CONFIGURATION (Using Environment Variables for Security)
 TOKEN = ("DISCORD_TOKEN")  # Set this in Railway
-CHANNEL_ID = ("CHANNEL_ID", )  # Set this in Railway
+CHANNEL_ID = ("CHANNEL_ID")  # Set this in Railway
 TWITTER_USERNAMES = [
     "elonmusk", "MarioNawfal", "WhatcherGuru", "DailyMailCeleb", 
     "Nuotrix", "PFTrenches", "TrumpDailyPosts", "meme1coins", 
@@ -27,13 +27,11 @@ async def on_ready():
     print(f'Logged in as {client.user}')
     if not check_tweets.is_running():
         check_tweets.start()
-    if not keep_alive.is_running():
-        keep_alive.start()
 
 # Store last seen tweet links
 last_tweets = {}
 
-@tasks.loop(seconds=6)  # Adjust to prevent rate limits
+@tasks.loop(seconds=60)  # Adjust to prevent rate limits
 async def check_tweets():
     """Fetches tweets from RSS and posts new ones to the Discord channel."""
     channel = client.get_channel(CHANNEL_ID)
@@ -58,10 +56,6 @@ async def check_tweets():
 
         except Exception as e:
             print(f"Error fetching tweets for @{username}: {e}")
-
-@tasks.loop(minutes=5)
-async def keep_alive():
-    print("🔄 Keeping bot alive...")
 
 if __name__ == "__main__":
     client.run(TOKEN)
