@@ -1,10 +1,8 @@
-
 import tweepy
 import discord
 import os
 from discord.ext import tasks
 from dotenv import load_dotenv
-pip install python-dotenv
 
 # Load environment variables from .env file
 load_dotenv()
@@ -15,27 +13,29 @@ CONSUMER_SECRET = os.getenv("TWITTER_CONSUMER_SECRET")
 ACCESS_TOKEN = os.getenv("TWITTER_ACCESS_TOKEN")
 ACCESS_TOKEN_SECRET = os.getenv("TWITTER_ACCESS_TOKEN_SECRET")
 
+# Ensure that the keys are loaded correctly
+print("Twitter Consumer Key:", CONSUMER_KEY)
+print("Twitter Consumer Secret:", CONSUMER_SECRET)
+
 # Set up Twitter API client
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 # BOT CONFIGURATION
-TOKEN = os.getenv("DISCORD_TOKEN")  # Discord Bot Token from environment
-CHANNEL_ID = int(os.getenv("CHANNEL_ID"))  # Channel ID for the bot to send messages
+TOKEN = os.getenv("DISCORD_TOKEN")
+CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 TWITTER_USERNAMES = [
-    "WhatcherGuru", "DailyMailCeleb", "Nuotrix", "PFTrenches", "TrumpDailyPosts", 
-    "meme1coins", "phantom", "orangiecoins", "solana", "binance", "CryptoXEmperor", 
+    "WhatcherGuru", "DailyMailCeleb",
+    "Nuotrix", "PFTrenches", "TrumpDailyPosts", "meme1coins",
+    "phantom", "orangiecoins", "solana", "binance", "CryptoXEmperor",
     "BoredElonMusk", "Cobratate", "BillGates", "realDonaldTrump"
 ]
 
 # Set up bot with appropriate intents
 intents = discord.Intents.default()
-intents.guilds = True  # Required for channel fetching
+intents.guilds = True
 client = discord.Client(intents=intents)
-
-# Store last seen tweet links
-last_tweets = {}
 
 @client.event
 async def on_ready():
@@ -43,8 +43,10 @@ async def on_ready():
     if not check_tweets.is_running():
         check_tweets.start()
 
-# Task to check for new tweets and post to Discord
-@tasks.loop(seconds=30)  # You can adjust the seconds if needed
+# Store last seen tweet links
+last_tweets = {}
+
+@tasks.loop(seconds=30)
 async def check_tweets():
     """Fetches tweets from Twitter API and posts new ones to the Discord channel."""
     channel = client.get_channel(CHANNEL_ID)
@@ -54,7 +56,7 @@ async def check_tweets():
 
     for username in TWITTER_USERNAMES:
         try:
-            # Fetch the latest tweet from the user
+            # Fetch latest tweet from user
             tweets = api.user_timeline(screen_name=username, count=1, tweet_mode='extended')
             if not tweets:
                 print(f"No tweets found for @{username}")
@@ -71,6 +73,5 @@ async def check_tweets():
         except tweepy.TweepError as e:
             print(f"Error fetching tweets for @{username}: {e}")
 
-# Run the bot with the Discord token
 if __name__ == "__main__":
     client.run(TOKEN)
