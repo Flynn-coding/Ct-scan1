@@ -1,4 +1,3 @@
-
 import discord
 import feedparser
 import os
@@ -60,3 +59,12 @@ async def check_tweets():
 
 if __name__ == "__main__":
     client.run(TOKEN)
+
+[phases.setup]
+nixPkgs = ["python311", "gcc"]  # Ensure Python 3.11 and dependencies
+
+[phases.build]
+cmds = ["pip install -r requirements.txt"]
+
+[start]
+cmd = "python bot.py"
