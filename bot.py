@@ -8,7 +8,7 @@ from discord.ext import tasks
 TOKEN = os.getenv("DISCORD_TOKEN")  # Set this in Railway
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))  # Set this in Railway
 TWITTER_USERNAMES = [
-    "elonmusk", "MarioNawfal", "WhatcherGuru", "DailyMailCeleb", 
+    "WhatcherGuru", "DailyMailCeleb", 
     "Nuotrix", "PFTrenches", "TrumpDailyPosts", "meme1coins", 
     "phantom", "orangiecoins", "solana", "binance", "CryptoXEmperor", 
     "BoredElonMusk", "Cobratate", "BillGates", "realDonaldTrump"
