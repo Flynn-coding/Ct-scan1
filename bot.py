@@ -61,7 +61,9 @@ async def check_tweets():
                 # Only post if the tweet is new
                 if username not in last_tweets or last_tweets[username] != tweet_link:
                     last_tweets[username] = tweet_link
+                    # Send the tweet link to the Discord channel
                     await channel.send(f"New tweet from @{username}: {tweet_link}")
+                    print(f"Tweet sent to Discord: {tweet_link}")
             else:
                 print(f"Missing tweet link for @{username}")
 
