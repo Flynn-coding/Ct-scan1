@@ -1,2 +1,5 @@
 discord.py
 feedparser
+tweepy==4.12.1
+discord.py==2.0.0
+python-dotenv==0.20.0
