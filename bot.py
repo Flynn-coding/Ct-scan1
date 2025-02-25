@@ -3,6 +3,7 @@ import discord
 import os
 from discord.ext import tasks
 from dotenv import load_dotenv
+pip install python-dotenv
 
 # Load environment variables from .env file
 load_dotenv()
