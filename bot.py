@@ -23,7 +23,7 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 api = tweepy.API(auth)
 
 # BOT CONFIGURATION
-TOKEN = os.getenv("MTM0Mzc1NzUyODkyNzgzMDAyNg.GXJo4G.-xDLQV8GalG7Hz1Epj8vGEowViBz6boBONJzDw")
+TOKEN = ("MTM0Mzc1NzUyODkyNzgzMDAyNg.GXJo4G.-xDLQV8GalG7Hz1Epj8vGEowViBz6boBONJzDw")
 CHANNEL_ID = int(os.getenv("CHANNEL_ID"))
 TWITTER_USERNAMES = [
     "WhatcherGuru", "DailyMailCeleb",
