@@ -5,7 +5,7 @@ import asyncio
 from discord.ext import tasks
 
 # BOT CONFIGURATION (Using Environment Variables for Security)
-TOKEN = os.getenv("6ae15545d882d9d2dcde50de6b363ea9da2ba53b91383993162fe5e3c1c65f11")  # Set this in Railway
+TOKEN = os.getenv("DISCORD_TOKEN")  # Set this in Railway
 CHANNEL_ID = int(os.getenv("1343377957636280493"))  # Set this in Railway
 TWITTER_USERNAMES = [
     "elonmusk", "MarioNawfal", "WhatcherGuru", "DailyMailCeleb", 
