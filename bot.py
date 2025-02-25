@@ -33,7 +33,7 @@ async def on_ready():
 # Store last seen tweet links
 last_tweets = {}
 
-@tasks.loop(seconds=6)  # Adjust to prevent rate limits
+@tasks.loop(seconds=30)  # Adjust to prevent rate limits
 async def check_tweets():
     """Fetches tweets from RSS and posts new ones to the Discord channel."""
     channel = client.get_channel(CHANNEL_ID)
