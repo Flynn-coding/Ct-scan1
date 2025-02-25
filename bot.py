@@ -57,14 +57,4 @@ async def check_tweets():
         except Exception as e:
             print(f"Error fetching tweets for @{username}: {e}")
 
-if __name__ == "__main__":
-    client.run(TOKEN)
 
-[phases.setup]
-nixPkgs = ["python311", "gcc"]  # Ensure Python 3.11 and dependencies
-
-[phases.build]
-cmds = ["pip install -r requirements.txt"]
-
-[start]
-cmd = "python bot.py"
